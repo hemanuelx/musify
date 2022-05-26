@@ -1,4 +1,4 @@
-package com.example.musify.domain;
+package com.example.musify.entities.musicbrainz;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -22,7 +22,7 @@ public class Artist {
     }
 
     @JsonProperty("release-groups")
-    private List<ReleaseGroup> albums;
+    private List<Album> albums;
 
     public String getName() {
         return name;
@@ -44,7 +44,7 @@ public class Artist {
         return disambiguation;
     }
 
-    public List<ReleaseGroup> getAlbums() {
+    public List<Album> getAlbums() {
         return albums;
     }
 }

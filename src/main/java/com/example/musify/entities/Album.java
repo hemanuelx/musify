@@ -1,8 +1,9 @@
-package com.example.musify.domain;
+package com.example.musify.entities;
 
-public class ReleaseGroup {
+public class Album {
     private String id;
     private String title;
+    private String imageUrl;
 
     public String getId() {
         return id;
@@ -10,5 +11,9 @@ public class ReleaseGroup {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 }

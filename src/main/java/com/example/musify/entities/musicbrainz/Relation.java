@@ -1,4 +1,4 @@
-package com.example.musify.domain;
+package com.example.musify.entities.musicbrainz;
 
 public class Relation {
     private String type;
