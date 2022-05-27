@@ -2,7 +2,7 @@ package com.example.musify.entities;
 
 import java.util.List;
 
-public class ArtistDetailsResponse {
+public class ArtistDetails {
     private String mbid;
     private String name;
     private String gender;

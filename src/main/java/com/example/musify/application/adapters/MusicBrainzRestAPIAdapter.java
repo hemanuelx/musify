@@ -1,6 +1,5 @@
-package com.example.musify.application.musicbrainz;
+package com.example.musify.application.adapters;
 
-import com.example.musify.application.RestAPIAdapter;
 import com.example.musify.entities.musicbrainz.Artist;
 
 public class MusicBrainzRestAPIAdapter extends RestAPIAdapter {
