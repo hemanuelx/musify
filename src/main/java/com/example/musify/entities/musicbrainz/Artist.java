@@ -47,4 +47,12 @@ public class Artist {
     public List<Album> getAlbums() {
         return albums;
     }
+
+    public void setRelations(List<Relation> relations) {
+        this.relations = relations;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

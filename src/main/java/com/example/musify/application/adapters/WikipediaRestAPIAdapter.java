@@ -1,7 +1,9 @@
 package com.example.musify.application.adapters;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.stereotype.Component;
 
+@Component
 public class WikipediaRestAPIAdapter extends RestAPIAdapter {
     private final static String API_URL = "https://en.wikipedia.org/api/rest_v1/page/summary/";
 

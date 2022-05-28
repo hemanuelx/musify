@@ -1,5 +1,6 @@
 package com.example.musify;
 
+import com.example.musify.application.adapters.MusicBrainzRestAPIAdapter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -26,5 +27,4 @@ public class MusifyApplication {
 		executor.initialize();
 		return executor;
 	}
-
 }

@@ -1,13 +1,18 @@
-package com.example.musify.application;
+package com.example.musify.application.artist;
 
+import com.example.musify.application.album.AlbumComponent;
 import com.example.musify.application.adapters.MusicBrainzRestAPIAdapter;
 import com.example.musify.application.adapters.WikidataRestAPIAdapter;
 import com.example.musify.application.adapters.WikipediaRestAPIAdapter;
 import com.example.musify.entities.Album;
 import com.example.musify.entities.musicbrainz.Artist;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -16,8 +21,24 @@ import java.util.stream.Collectors;
 @Component
 public class ArtistComponent {
 
-    public Artist getArtist(String mbid) {
-        return new MusicBrainzRestAPIAdapter().getArtist(mbid);
+    private final MusicBrainzRestAPIAdapter musicBrainzRestAPIAdapter;
+    private final WikidataRestAPIAdapter wikidataRestAPIAdapter;
+    private final WikipediaRestAPIAdapter wikipediaRestAPIAdapter;
+
+
+    public ArtistComponent(MusicBrainzRestAPIAdapter musicBrainzRestAPIAdapter, WikidataRestAPIAdapter wikidataRestAPIAdapter,
+                           WikipediaRestAPIAdapter wikipediaRestAPIAdapter) {
+        this.musicBrainzRestAPIAdapter = musicBrainzRestAPIAdapter;
+        this.wikidataRestAPIAdapter = wikidataRestAPIAdapter;
+        this.wikipediaRestAPIAdapter = wikipediaRestAPIAdapter;
+    }
+
+    public Artist getArtist(String mbid) throws ArtistNotFoundException {
+        try {
+            return musicBrainzRestAPIAdapter.getArtist(mbid);
+        } catch (HttpClientErrorException e) {
+            throw new ArtistNotFoundException(e.getStatusCode(), mbid);
+        }
     }
 
     public List<CompletableFuture<Album>> createAlbumCompletableFutureList(AlbumComponent albumComponent, Artist artist) {
@@ -41,12 +62,18 @@ public class ArtistComponent {
         return getUrlLastElement(artist.getRelations().stream().filter(relation -> relation.getType().equals("wikidata")).findFirst().get().getUrl().getResource());
     }
 
-    public String getWikipediaExtractHtml(ArtistComponent artistComponent, Artist artist) {
-        String artistWikidataId = artistComponent.getWikidataId(artist);
-        ObjectNode wikidataResponse = new WikidataRestAPIAdapter().getArtistData(artistWikidataId);
-        String wikiUrl = getWikiUrl(artistWikidataId, wikidataResponse);
-        ObjectNode wikipediaResponse = new WikipediaRestAPIAdapter().getArtistData(getUrlLastElement(wikiUrl));
-        return wikipediaResponse.get("extract_html").asText();
+    @Nullable
+    public String getWikipediaExtractHtml(Artist artist) {
+        try {
+            String artistWikidataId = getWikidataId(artist);
+            ObjectNode wikidataResponse = wikidataRestAPIAdapter.getArtistData(artistWikidataId);
+            String wikiUrl = getWikiUrl(artistWikidataId, wikidataResponse);
+            ObjectNode wikipediaResponse = wikipediaRestAPIAdapter.getArtistData(getUrlLastElement(wikiUrl));
+            return wikipediaResponse.get("extract_html").asText();
+        } catch (Exception e) {
+            System.out.println("Not able to lado Wikipedia data for artist "+artist.getId());
+        }
+        return null;
     }
 
     private String getWikiUrl(String artistWikidataId, ObjectNode wikidataResponse) {

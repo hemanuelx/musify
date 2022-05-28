@@ -6,4 +6,8 @@ public class Url {
     public String getResource() {
         return resource;
     }
+
+    public void setResource(String resource) {
+        this.resource = resource;
+    }
 }

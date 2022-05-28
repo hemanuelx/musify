@@ -1,5 +1,7 @@
 package com.example.musify.application;
 
+import com.example.musify.application.album.AlbumComponent;
+import com.example.musify.application.artist.ArtistComponent;
 import com.example.musify.entities.Album;
 import com.example.musify.entities.ArtistDetails;
 import com.example.musify.entities.musicbrainz.Artist;
@@ -11,16 +13,17 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class MusicArtistService {
     private final AlbumComponent albumComponent;
+    private final ArtistComponent artistComponent;
 
-    public MusicArtistService(AlbumComponent albumComponent) {
+    public MusicArtistService(AlbumComponent albumComponent, ArtistComponent artistComponent) {
         this.albumComponent = albumComponent;
+        this.artistComponent = artistComponent;
     }
 
     public ArtistDetails getMusicArtistDetails(String mbid) {
-        ArtistComponent artistComponent = new ArtistComponent();
-        Artist artist =  artistComponent.getArtist(mbid);
+        Artist artist = artistComponent.getArtist(mbid);
         List<CompletableFuture<Album>> albumCompletableFutureList = artistComponent.createAlbumCompletableFutureList(albumComponent, artist);
-        String wikipediaExtractHtml = artistComponent.getWikipediaExtractHtml(artistComponent, artist);
+        String wikipediaExtractHtml = artistComponent.getWikipediaExtractHtml(artist);
 
         List<Album> albums = artistComponent.getAlbumsFromCompletableFutureList(albumCompletableFutureList);
         return createArtistDetails(artist, wikipediaExtractHtml, albums);

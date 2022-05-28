@@ -12,4 +12,12 @@ public class Relation {
     public String getType() {
         return type;
     }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setUrl(Url url) {
+        this.url = url;
+    }
 }
