@@ -1,7 +1,7 @@
 package com.example.musify.controllers;
 
-import com.example.musify.application.MusicArtistComponent;
-import com.example.musify.application.AlbumService;
+import com.example.musify.application.MusicArtistService;
+import com.example.musify.application.AlbumComponent;
 import com.example.musify.entities.ArtistDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController(value = "")
 public class MusicArtistController {
 
-    private AlbumService albumService;
+    private AlbumComponent albumComponent;
 
-    public MusicArtistController(AlbumService albumService) {
-        this.albumService = albumService;
+    public MusicArtistController(AlbumComponent albumComponent) {
+        this.albumComponent = albumComponent;
     }
 
     @GetMapping(value = "musify/music-artist/details/{mbid}", produces = "application/json")
     public ArtistDetails getMusicArtistDetails(@PathVariable String mbid) {
-        MusicArtistComponent musicArtistComponent = new MusicArtistComponent(albumService);
-        return musicArtistComponent.getMusicArtistDetails(mbid);
+        MusicArtistService musicArtistService = new MusicArtistService(albumComponent);
+        return musicArtistService.getMusicArtistDetails(mbid);
     }
 
 }

@@ -20,10 +20,10 @@ public class ArtistComponent {
         return new MusicBrainzRestAPIAdapter().getArtist(mbid);
     }
 
-    public List<CompletableFuture<Album>> createAlbumCompletableFutureList(AlbumService albumService, Artist artist) {
+    public List<CompletableFuture<Album>> createAlbumCompletableFutureList(AlbumComponent albumComponent, Artist artist) {
         List<CompletableFuture<Album>> albumCompletableFutureList = new ArrayList<>();
         if (artist.getAlbums() != null) {
-            artist.getAlbums().forEach(album -> albumCompletableFutureList.add(albumService.getAlbumWithImageURL(album.getId(), album.getTitle())));
+            artist.getAlbums().forEach(album -> albumCompletableFutureList.add(albumComponent.getAlbumWithImageURL(album.getId(), album.getTitle())));
         }
 
         return albumCompletableFutureList;
@@ -43,9 +43,9 @@ public class ArtistComponent {
 
     public String getWikipediaExtractHtml(ArtistComponent artistComponent, Artist artist) {
         String artistWikidataId = artistComponent.getWikidataId(artist);
-        ObjectNode wikidataResponse = new WikidataRestAPIAdapter().getForObject(artistWikidataId);
+        ObjectNode wikidataResponse = new WikidataRestAPIAdapter().getArtistData(artistWikidataId);
         String wikiUrl = getWikiUrl(artistWikidataId, wikidataResponse);
-        ObjectNode wikipediaResponse = new WikipediaRestAPIAdapter().getForObject(getUrlLastElement(wikiUrl));
+        ObjectNode wikipediaResponse = new WikipediaRestAPIAdapter().getArtistData(getUrlLastElement(wikiUrl));
         return wikipediaResponse.get("extract_html").asText();
     }
 

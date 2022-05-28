@@ -1,28 +1,25 @@
 package com.example.musify.application;
 
-import com.example.musify.application.adapters.WikidataRestAPIAdapter;
-import com.example.musify.application.adapters.WikipediaRestAPIAdapter;
 import com.example.musify.entities.Album;
 import com.example.musify.entities.ArtistDetails;
 import com.example.musify.entities.musicbrainz.Artist;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-@Component
-public class MusicArtistComponent {
-    private final AlbumService albumService;
+@Service
+public class MusicArtistService {
+    private final AlbumComponent albumComponent;
 
-    public MusicArtistComponent(AlbumService albumService) {
-        this.albumService = albumService;
+    public MusicArtistService(AlbumComponent albumComponent) {
+        this.albumComponent = albumComponent;
     }
 
     public ArtistDetails getMusicArtistDetails(String mbid) {
         ArtistComponent artistComponent = new ArtistComponent();
         Artist artist =  artistComponent.getArtist(mbid);
-        List<CompletableFuture<Album>> albumCompletableFutureList = artistComponent.createAlbumCompletableFutureList(albumService, artist);
+        List<CompletableFuture<Album>> albumCompletableFutureList = artistComponent.createAlbumCompletableFutureList(albumComponent, artist);
         String wikipediaExtractHtml = artistComponent.getWikipediaExtractHtml(artistComponent, artist);
 
         List<Album> albums = artistComponent.getAlbumsFromCompletableFutureList(albumCompletableFutureList);
@@ -41,10 +38,5 @@ public class MusicArtistComponent {
         artistDetails.setAlbums(albums);
 
         return artistDetails;
-    }
-
-
-    private String getUrlLastElement(String url) {
-        return url.substring(url.lastIndexOf("/") + 1);
     }
 }
