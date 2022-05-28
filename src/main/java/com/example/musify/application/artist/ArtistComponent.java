@@ -1,18 +1,16 @@
 package com.example.musify.application.artist;
 
-import com.example.musify.application.album.AlbumComponent;
 import com.example.musify.application.adapters.MusicBrainzRestAPIAdapter;
 import com.example.musify.application.adapters.WikidataRestAPIAdapter;
 import com.example.musify.application.adapters.WikipediaRestAPIAdapter;
+import com.example.musify.application.album.AlbumComponent;
 import com.example.musify.entities.Album;
 import com.example.musify.entities.musicbrainz.Artist;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -53,7 +51,7 @@ public class ArtistComponent {
     public List<Album> getAlbumsFromCompletableFutureList(List<CompletableFuture<Album>> completableFutureList) {
         List<Album> albums = new ArrayList<>();
         albums.addAll(completableFutureList.stream()
-                .map(completableFuture -> completableFuture.join())
+                .map(CompletableFuture::join)
                 .collect(Collectors.toCollection(ArrayList::new)));
         return albums;
     }

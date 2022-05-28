@@ -1,16 +1,14 @@
 package com.example.musify.controllers;
 
 import com.example.musify.application.MusicArtistService;
-import com.example.musify.application.album.AlbumComponent;
-import com.example.musify.application.artist.ArtistComponent;
 import com.example.musify.entities.ArtistDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController(value = "")
+@RestController
 public class MusicArtistController {
-    private MusicArtistService musicArtistService;
+    final private MusicArtistService musicArtistService;
 
     public MusicArtistController(MusicArtistService musicArtistService) {
         this.musicArtistService = musicArtistService;

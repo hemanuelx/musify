@@ -9,16 +9,13 @@ import com.example.musify.entities.musicbrainz.Relation;
 import com.example.musify.entities.musicbrainz.Url;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class ArtistComponentTest {
@@ -59,7 +56,7 @@ class ArtistComponentTest {
 
         Artist artist = new Artist();
         artist.setId(id);
-        artist.setRelations(Arrays.asList(relation));
+        artist.setRelations(List.of(relation));
 
         return artist;
     }
