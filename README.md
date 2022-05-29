@@ -25,6 +25,7 @@ b83bc61f-8451-4a5d-8b8e-7e9ed295e822
 - Java 11
 - Spring Boot
 - [resilience4j](https://resilience4j.readme.io/): used this tool to introduce a circuit breaker when requesting the externals APIs
+- [JMeter](https://jmeter.apache.org/): stress test
 
 ## TO-DO:
 - Define creation of specific objects for all APIs responses or handle it as Object[]
@@ -37,3 +38,4 @@ b83bc61f-8451-4a5d-8b8e-7e9ed295e822
   - coverage 100% of the user cases, including CB
 - Validate the possibility to Caching the results
   - The public APIs has some restrictions in how many request per second they accept, caching would relieve the amount of repeatedly requests.
+- Perform better in stress test
