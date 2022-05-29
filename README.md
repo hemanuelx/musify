@@ -1,15 +1,13 @@
 # Musify
 
 ## Build and run it
-TO run the application in a docker container:
+To run the application in a docker container:
 
-<code>
+<code>./mvnw package</code>
 
-./mvnw package
+<code>docker build -t musify .</code>
 
-docker build -t musify .
-
-docker run -p 8080:8080 musify
+<code>docker run -p 8080:8080 musify</code>
 
 </code>
 
@@ -26,7 +24,7 @@ b83bc61f-8451-4a5d-8b8e-7e9ed295e822
 ## Tools
 - Java 11
 - Spring Boot
-- [resilience4j] (https://resilience4j.readme.io/): used this tool to introduce a circuit breaker when requesting the externals APIs
+- [resilience4j](https://resilience4j.readme.io/): used this tool to introduce a circuit breaker when requesting the externals APIs
 
 ## TO-DO:
 - Define creation of specific objects for all APIs responses or handle it as Object[]
