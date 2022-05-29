@@ -39,7 +39,6 @@ public class MusicArtistService {
         artistDetails.setGender(artist.getGender());
         artistDetails.setMbid(artist.getId());
         artistDetails.setAlbums(albums);
-
         return artistDetails;
     }
 }

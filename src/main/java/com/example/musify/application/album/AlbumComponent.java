@@ -10,10 +10,16 @@ import java.util.concurrent.CompletableFuture;
 
 @Component
 public class AlbumComponent {
+    private final CoverArtArchiveRestAPIAdapter coverArtArchiveRestAPIAdapter;
+
+    public AlbumComponent(CoverArtArchiveRestAPIAdapter coverArtArchiveRestAPIAdapter) {
+        this.coverArtArchiveRestAPIAdapter = coverArtArchiveRestAPIAdapter;
+    }
+
     @Async
     public CompletableFuture<Album> getAlbumWithImageURL(String id, String title) {
         try {
-            ObjectNode coverArtArchive = new CoverArtArchiveRestAPIAdapter().getImageDate(id);
+            ObjectNode coverArtArchive = coverArtArchiveRestAPIAdapter.getImageDate(id);
             return CompletableFuture.completedFuture(
                     new Album(id, title, coverArtArchive.get("images").get(0).get("image").asText())
             );

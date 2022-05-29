@@ -11,6 +11,6 @@ public class MusicBrainzRestAPIAdapter extends RestAPIAdapter {
     public Artist getArtist(String mbid) {
         String apiURL = API_URL + mbid + API_URL_QUERY_PARAMETERS;
 
-        return this.getForObject(apiURL, Artist.class);
+        return this.getForObject(apiURL, Artist.class, "artistCB");
     }
 }

@@ -7,6 +7,7 @@ import com.example.musify.application.album.AlbumComponent;
 import com.example.musify.entities.Album;
 import com.example.musify.entities.musicbrainz.Artist;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
@@ -35,7 +36,10 @@ public class ArtistComponent {
         try {
             return musicBrainzRestAPIAdapter.getArtist(mbid);
         } catch (HttpClientErrorException e) {
-            throw new ArtistNotFoundException(e.getStatusCode(), mbid);
+            if (e.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+                throw new ArtistNotFoundException(e.getStatusCode(), mbid);
+            }
+            throw e;
         }
     }
 
