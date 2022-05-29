@@ -16,7 +16,11 @@ public class MusicArtistController {
 
     @GetMapping(value = "musify/music-artist/details/{mbid}", produces = "application/json")
     public ArtistDetails getMusicArtistDetails(@PathVariable String mbid) {
-        return musicArtistService.getMusicArtistDetails(mbid);
+        System.out.println("START " +System.currentTimeMillis());
+        ArtistDetails musicArtistDetails = musicArtistService.getMusicArtistDetails(mbid);
+        System.out.println("END " +System.currentTimeMillis());
+
+        return musicArtistDetails;
     }
 
 }

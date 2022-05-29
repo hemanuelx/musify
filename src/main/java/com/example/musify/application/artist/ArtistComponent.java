@@ -7,6 +7,7 @@ import com.example.musify.application.album.AlbumComponent;
 import com.example.musify.entities.Album;
 import com.example.musify.entities.musicbrainz.Artist;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;

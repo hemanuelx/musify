@@ -3,13 +3,11 @@
 ## Build and run it
 To run the application in a docker container:
 
-<code>./mvnw package</code>
+<code> ./mvnw package </code>
 
-<code>docker build -t musify .</code>
+<code> docker build -t musify . </code>
 
-<code>docker run -p 8080:8080 musify</code>
-
-</code>
+<code> docker run -p 8080:8080 musify </code>
 
 ## mbids
 f27ec8db-af05-4f36-916e-3d57f91ecf5e
@@ -36,6 +34,4 @@ b83bc61f-8451-4a5d-8b8e-7e9ed295e822
     - Would be better to invest more time here to monitor and configure the CB more precisely.
 - Unit test
   - coverage 100% of the user cases, including CB
-- Validate the possibility to Caching the results
-  - The public APIs has some restrictions in how many request per second they accept, caching would relieve the amount of repeatedly requests.
-- Perform better in stress test
+- As new API will be introduced it makes sense to handle better the RestController classes (naming, pattern, ...)
